@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>自瞄靶场</title>
+<meta name="description" content="单机射击小游戏：在手动、辅助瞄准和暴力自瞄三种模式之间切换，对比分数。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+<header>
+  <h1>自瞄<span>靶场</span></h1>
+  <div class="seg" role="group" aria-label="瞄准模式">
+    <button id="m-off" data-mode="off" aria-pressed="false">手动 <kbd>1</kbd></button>
+    <button id="m-assist" data-mode="assist" aria-pressed="false">辅助瞄准 <kbd>2</kbd></button>
+    <button id="m-rage" data-mode="rage" aria-pressed="true">暴力自瞄 <kbd>3</kbd></button>
+  </div>
+  <div class="toggles">
+    <label><input type="checkbox" id="t-esp" checked> 透视框 <kbd style="font:500 .7rem var(--font-mono);opacity:.6">E</kbd></label>
+    <label><input type="checkbox" id="t-sound" checked> 声音</label>
+  </div>
+</header>
+
+<div id="stage">
+  <canvas id="cv" aria-label="游戏画面"></canvas>
+  <div class="overlay" id="ov-start">
+    <div class="card">
+      <h2>单机靶场：体验一把暴力自瞄</h2>
+      <p>你守在中间的炮台，四面八方的无人机会冲过来。左右乱晃的「疾风」手动很难打中，开了自瞄就一个都跑不掉。</p>
+      <ul>
+        <li><b>手动</b>：鼠标瞄准，按住左键开火</li>
+        <li><b>辅助瞄准</b>：准星被圆圈里的敌人「吸」过去，开火还得你按</li>
+        <li><b>暴力自瞄</b>：全屏锁定、预判走位、自动开火，你什么都不用做</li>
+      </ul>
+      <p>随时按 1 / 2 / 3 切换模式，E 开关透视框，空格暂停。先用暴力自瞄爽一局，再用手动打一局对比一下分数。</p>
+      <button class="go" id="btn-start">开始</button>
+    </div>
+  </div>
+  <div class="overlay" id="ov-over" hidden>
+    <div class="card">
+      <h2 id="over-title">炮台被摧毁</h2>
+      <div class="big" id="over-score">0</div>
+      <p id="over-line"></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>本次游戏记录</th><th>分数</th><th>击杀</th><th>命中率</th><th>坚持</th></tr></thead>
+          <tbody id="records"></tbody>
+        </table>
+      </div>
+      <button class="go" id="btn-again">再来一局</button>
+    </div>
+  </div>
+  <div class="overlay" id="ov-pause" hidden>
+    <div class="card"><h2>暂停</h2><p>按空格或点下面继续。</p><button class="go" id="btn-resume">继续</button></div>
+  </div>
+</div>
+
+<div class="stats" aria-live="off">
+  <span class="hp" id="s-hp-wrap">生命<b id="s-hp">100</b></span>
+  <span>分数<b id="s-score">0</b></span>
+  <span>击杀<b id="s-kills">0</b></span>
+  <span>命中率<b id="s-acc">—</b></span>
+  <span>每秒击杀<b id="s-kps">0.0</b></span>
+  <span>波次<b id="s-wave">1</b></span>
+</div>
+
+<script src="src/game.js"></script>
+</body>
+</html>
